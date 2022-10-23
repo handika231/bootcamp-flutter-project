@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:upload_file_app/widgets/button_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -7,15 +8,36 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        backgroundColor: Colors.lightGreen,
+        title: const Text('Firebase Upload File'),
+        centerTitle: true,
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/second');
-          },
-          child: const Text('Go to Second Page'),
-        ),
+      body: Padding(
+        padding: const EdgeInsets.all(18.0),
+        child: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ButtonWidget(
+              icon: Icons.attach_file,
+              text: 'Select File',
+              onPressed: () {},
+            ),
+            const SizedBox(
+              height: 6,
+            ),
+            const Text(
+              'No file selected',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+          ],
+        )),
       ),
     );
   }

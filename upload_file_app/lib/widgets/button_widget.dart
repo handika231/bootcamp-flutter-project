@@ -14,15 +14,24 @@ class ButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.white,
         backgroundColor: Colors.lightGreen,
         minimumSize: const Size(double.infinity, 50),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(32),
+          borderRadius: BorderRadius.circular(12),
         ),
       ),
       onPressed: onPressed,
-      label: Text(text),
-      icon: Icon(icon),
+      label: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      icon: Icon(
+        icon,
+      ),
     );
   }
 }
