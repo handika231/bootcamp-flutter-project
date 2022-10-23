@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 6,
               ),
-              task != null ? buildUploadTask(task!) : Container(),
+              (task != null ? buildUploadTask(task!) : Container()),
             ],
           ),
         ),
@@ -101,7 +101,30 @@ class _HomePageState extends State<HomePage> {
           final snap = snapshot.data!;
           final progress = snap.bytesTransferred / snap.totalBytes;
           final percentage = (progress * 100).toStringAsFixed(2);
-          return Text('$percentage %');
+          return Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+            width: double.infinity,
+            child: Column(
+              children: [
+                LinearProgressIndicator(value: progress),
+                const SizedBox(
+                  height: 6,
+                ),
+                Text('$percentage %'),
+                percentage == '100.00'
+                    ? const Text(
+                        'Upload Completed',
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+              ],
+            ),
+          );
         } else {
           return const SizedBox.shrink();
         }
