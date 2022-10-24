@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:upload_file_app/widgets/button_widget.dart';
 
 import '../utils/storage_helper.dart';
@@ -17,10 +18,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   UploadTask? task;
   File? file;
+  File? imageFile;
   @override
   Widget build(BuildContext context) {
     String fileName =
         file != null ? file!.path.split('/').last : 'No File Selected';
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
@@ -60,11 +63,31 @@ class _HomePageState extends State<HomePage> {
                 height: 6,
               ),
               (task != null ? buildUploadTask(task!) : Container()),
+              SizedBox(
+                height: 20,
+              ),
+              ButtonWidget(
+                  icon: Icons.camera,
+                  text: 'Pick from camera',
+                  onPressed: pickFromCamera),
+              (imageFile != null
+                  ? Text(imageFile!.path.split('/').last)
+                  : Container())
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future pickFromCamera() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+    if (image != null) {
+      setState(() {
+        imageFile = File(image.path);
+      });
+    }
   }
 
   Future selectFile() async {
